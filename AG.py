@@ -229,13 +229,17 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 
 # 📂 Load CSV Data
-file_path = "business_expense_tracker_yearly.csv"
+file_path = ""
 df = pd.read_csv(file_path)
 
-# Fix column names
-if "Amount (â‚¹)" in df.columns:
-    df.rename(columns={"Amount (â‚¹)": "Amount"}, inplace=True)
+# ✅ Fix column names (removing hidden spaces or encoding issues)
+df.columns = df.columns.str.strip()
 
+# ✅ Check & Rename Columns if needed
+expected_columns = {"Date": "Date", "Category": "Category", "Amount (â‚¹)": "Amount", "Type": "Type", "Description": "Description"}
+df.rename(columns={col: expected_columns[col] for col in df.columns if col in expected_columns}, inplace=True)
+
+# ✅ Convert "Date" to datetime format
 df["Date"] = pd.to_datetime(df["Date"], errors='coerce')
 
 # 🎯 App Title
@@ -301,4 +305,3 @@ st.write("🔹 **Is your income growing over time?** Look at the trend chart.")
 st.write("🔹 **Are you spending too much on certain categories?** Check the expense distribution.")
 st.write("🔹 **Are you making a profit each month?** Compare income vs. expenses.")
 st.write("🚀 **Track your finances regularly to make smart business decisions!**")
-
