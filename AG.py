@@ -220,3 +220,82 @@ st.write("💡 **Final Advice:** A well-planned loan can help you achieve your f
 st.markdown("🔹 **Use this tool to plan your loan better and make smart financial decisions!** 🚀")
 
  
+import streamlit as st
+import pandas as pd
+import matplotlib.pyplot as plt
+import os
+
+# 🏦 Streamlit Page Configuration
+st.set_page_config(page_title="📊 Business Expense Tracker", page_icon="💰", layout="wide")
+
+# 🎨 Header
+st.markdown("<h1 style='text-align: center; color: darkblue;'>📊 Business Expense Tracker</h1>", unsafe_allow_html=True)
+st.write("🚀 **Track your business expenses, analyze spending trends, and manage your budget effectively!**")
+st.write("💡 **Why use this app?**")
+st.write("- 📌 **Record all your expenses in one place.**")
+st.write("- 📊 **Visualize where your money is going.**")
+st.write("- 📉 **Identify areas where you can save costs.**")
+st.write("- 💰 **Download reports for tax and business planning.**")
+
+# 📂 Load or Create Expense Data
+csv_file = "business_expenses.csv"
+if os.path.exists(csv_file):
+    df = pd.read_csv(csv_file)
+else:
+    df = pd.DataFrame(columns=["Date","Category","Amount (â‚¹)","Payment Method","Description"])
+
+
+# 📌 Sidebar - User Inputs for Adding Expenses
+st.sidebar.header("📝 Add a New Expense")
+date = st.sidebar.date_input("📅 Date of Expense")
+category = st.sidebar.selectbox("📂 Expense Category", ["Rent", "Salaries", "Marketing", "Utilities", "Office Supplies", "Travel", "Internet", "Software", "Maintenance", "Food & Beverages"])
+amount = st.sidebar.number_input("💵 Amount Spent (₹)", min_value=1, step=100, format="%.2f")
+payment_method = st.sidebar.selectbox("💳 Payment Method", ["Cash", "Credit Card", "Debit Card", "UPI", "Bank Transfer"])
+description = st.sidebar.text_input("📝 Short Description")
+
+if st.sidebar.button("💾 Add Expense"):
+    new_data = pd.DataFrame([[date, category, amount, payment_method, description]], columns=df.columns)
+    df = pd.concat([df, new_data], ignore_index=True)
+    df.to_csv(csv_file, index=False)
+    st.sidebar.success("✅ Expense added successfully! Check the table below.")
+    st.experimental_rerun()
+
+# 📌 Display Expense Data
+st.markdown("## 📋 Your Expense Records")
+st.dataframe(df, use_container_width=True)
+
+# 📊 Expense Summary
+st.markdown("## 📊 Summary of Expenses")
+if not df.empty:
+    total_spent = df["Amount (₹)"].sum()
+    st.success(f"💰 **Total Money Spent:** ₹{total_spent:,.2f}")
+    
+    # 📊 Category-wise Expense Breakdown
+    st.markdown("### 📌 Breakdown by Category")
+    category_summary = df.groupby("Category")["Amount (₹)"].sum().sort_values(ascending=False)
+    fig, ax = plt.subplots(figsize=(8,4))
+    category_summary.plot(kind="bar", color="skyblue", ax=ax)
+    ax.set_ylabel("Amount (₹)")
+    ax.set_xlabel("Category")
+    ax.set_title("Expense Breakdown by Category")
+    st.pyplot(fig)
+    
+    # 🍰 Expense Pie Chart
+    st.markdown("### 🍰 Expense Distribution")
+    fig, ax = plt.subplots()
+    category_summary.plot(kind="pie", autopct="%1.1f%%", colors=["orange", "green", "blue", "purple", "red"], wedgeprops={"edgecolor": "black"}, ax=ax)
+    ax.set_ylabel("")
+    st.pyplot(fig)
+
+# 📌 Download Expense Report
+st.markdown("## 📥 Download Your Expense Report")
+st.download_button(label="📥 Download Report (CSV)", data=df.to_csv(index=False), file_name="business_expense_report.csv", mime="text/csv")
+
+# 🎯 Insights & Recommendations
+st.markdown("## 💡 Smart Business Insights")
+st.write("🔍 **What this data tells you:**")
+st.write("- 📢 **Are you overspending on rent or salaries?**")
+st.write("- 📊 **Is your marketing budget bringing returns?**")
+st.write("- 💰 **Can you cut down unnecessary spending?**")
+st.write("- 🚀 **What areas need more investment for growth?**")
+st.write("💡 **Tip:** Regularly tracking your expenses helps you make smarter financial decisions and grow your business sustainably! 🚀")
