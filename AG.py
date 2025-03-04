@@ -228,7 +228,7 @@ import seaborn as sns
 import matplotlib.pyplot as plt
 
 # Load the dataset
-file_path = "/mnt/data/business_expense_tracker_full_year (1).csv"
+file_path = "business_expense_tracker_full_year (1).csv"
 df = pd.read_csv(file_path)
 
 # Fix column names (sometimes they get corrupted)
