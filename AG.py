@@ -222,83 +222,75 @@ st.markdown("🔹 **Use this tool to plan your loan better and make smart financ
  
 
 
-# Load Data
-@st.cache_data
-def load_data():
-    df = pd.read_csv("business_expense_tracker_full_year (1).csv")
-    df.columns = ["Date", "Category", "Amount", "Payment Method", "Description"]
-    df["Date"] = pd.to_datetime(df["Date"])
-    return df
+import streamlit as st
+import pandas as pd
+import seaborn as sns
+import matplotlib.pyplot as plt
 
-df = load_data()
+# Load the dataset
+file_path = "/mnt/data/business_expense_tracker_full_year (1).csv"
+df = pd.read_csv(file_path)
 
-# Sidebar - User Inputs
-st.sidebar.header("🔍 Filter Your Expenses")
-selected_category = st.sidebar.multiselect("Select Category:", df["Category"].unique())
-selected_payment = st.sidebar.multiselect("Select Payment Method:", df["Payment Method"].unique())
-selected_date = st.sidebar.date_input("Select Date Range:", [])
+# Fix column names (sometimes they get corrupted)
+df.columns = ["Date", "Category", "Amount", "Payment Method", "Description"]
 
-# Filter Data
+# Convert "Date" column to datetime
+df["Date"] = pd.to_datetime(df["Date"], errors="coerce")
+
+# Remove any rows with missing dates
+df = df.dropna(subset=["Date"])
+
+# Sidebar Filters
+st.sidebar.header("📊 Filter Your Expenses")
+category_filter = st.sidebar.multiselect("🗂️ Select Expense Categories:", df["Category"].unique())
+payment_filter = st.sidebar.multiselect("💳 Select Payment Method:", df["Payment Method"].unique())
+
+# Date Range Filter
+date_range = st.sidebar.date_input("📅 Select Date Range:", [df["Date"].min(), df["Date"].max()])
+
+# Apply Filters
 filtered_df = df.copy()
-if selected_category:
-    filtered_df = filtered_df[filtered_df["Category"].isin(selected_category)]
-if selected_payment:
-    filtered_df = filtered_df[filtered_df["Payment Method"].isin(selected_payment)]
-if selected_date:
-    filtered_df = filtered_df[(filtered_df["Date"] >= pd.to_datetime(selected_date[0])) & (filtered_df["Date"] <= pd.to_datetime(selected_date[1]))]
 
-# Display Data
-st.title("📊 Business Expense Tracker")
-st.write("Manage and analyze your business expenses effortlessly!")
+if category_filter:
+    filtered_df = filtered_df[filtered_df["Category"].isin(category_filter)]
+if payment_filter:
+    filtered_df = filtered_df[filtered_df["Payment Method"].isin(payment_filter)]
+filtered_df = filtered_df[(filtered_df["Date"] >= pd.to_datetime(date_range[0])) & 
+                          (filtered_df["Date"] <= pd.to_datetime(date_range[1]))]
+
+# Main App Title
+st.title("💰 Business Expense Tracker")
+
+# Display Summary
+st.subheader("📌 Expense Overview")
+st.write(f"**Total Expenses:** ₹{filtered_df['Amount'].sum():,.2f}")
+st.write(f"**Number of Transactions:** {filtered_df.shape[0]}")
+
+# Show DataTable
+st.subheader("📜 Expense Records")
 st.dataframe(filtered_df)
 
-# Insights
-st.subheader("💡 Key Insights")
-total_expense = filtered_df["Amount"].sum()
-st.metric("Total Expenses (₹)", f"{total_expense:,.2f}")
-
+# Expense Breakdown by Category
+st.subheader("📊 Expense Breakdown by Category")
 if not filtered_df.empty:
-    highest_category = filtered_df.groupby("Category")["Amount"].sum().idxmax()
-    highest_expense = filtered_df.groupby("Category")["Amount"].sum().max()
-    st.metric("Highest Spending Category", f"{highest_category} (₹{highest_expense:,.2f})")
+    category_summary = filtered_df.groupby("Category")["Amount"].sum().sort_values(ascending=False)
+    st.bar_chart(category_summary)
+else:
+    st.warning("No data available for the selected filters.")
 
-# Visualization
-st.subheader("📈 Expense Trends")
-fig, ax = plt.subplots(figsize=(10, 4))
-sns.lineplot(data=filtered_df, x="Date", y="Amount", marker="o", ax=ax)
-plt.xticks(rotation=45)
-st.pyplot(fig)
+# Expense Trend Over Time
+st.subheader("📈 Expense Trend Over Time")
+if not filtered_df.empty:
+    fig, ax = plt.subplots(figsize=(10, 5))
+    sns.lineplot(data=filtered_df, x="Date", y="Amount", marker="o", ax=ax)
+    plt.xticks(rotation=45)
+    plt.title("Expense Trend Over Time")
+    plt.xlabel("Date")
+    plt.ylabel("Amount Spent (₹)")
+    st.pyplot(fig)
+else:
+    st.warning("No data available for the selected filters.")
 
-st.subheader("💰 Category-wise Expenses")
-fig, ax = plt.subplots(figsize=(8, 5))
-filtered_df.groupby("Category")["Amount"].sum().plot(kind='bar', ax=ax, color='skyblue')
-plt.xticks(rotation=45)
-st.pyplot(fig)
-
-# Add New Expense
-st.sidebar.subheader("➕ Add a New Expense")
-with st.sidebar.form("new_expense"):
-    new_date = st.date_input("Date")
-    new_category = st.text_input("Category")
-    new_amount = st.number_input("Amount (₹)", min_value=0.0, format="%.2f")
-    new_payment = st.selectbox("Payment Method", df["Payment Method"].unique())
-    new_description = st.text_area("Description")
-    submit_button = st.form_submit_button("Add Expense")
-
-    if submit_button:
-        new_data = pd.DataFrame({
-            "Date": [pd.to_datetime(new_date)],
-            "Category": [new_category],
-            "Amount": [new_amount],
-            "Payment Method": [new_payment],
-            "Description": [new_description]
-        })
-        df = pd.concat([df, new_data], ignore_index=True)
-        df.to_csv("/mnt/data/business_expense_tracker_full_year (1).csv", index=False)
-        st.sidebar.success("✅ Expense Added Successfully!")
-        st.experimental_rerun()
-
-st.markdown("---")
-st.caption("📌 Built with ❤️ using Streamlit")
-
+# Conclusion
+st.markdown("💡 *Use this tool to track your spending habits and optimize your business expenses!*")
 
