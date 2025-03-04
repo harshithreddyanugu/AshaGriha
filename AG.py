@@ -328,6 +328,94 @@ st.markdown("🔹 **This calculator helps you make smarter mortgage decisions by
 
 
 
+import streamlit as st
+import pandas as pd
+
+# 🎯 App Title
+st.title("🧮 India Income Tax Calculator (2024) 🇮🇳")
+st.write("🚀 **Calculate your tax liability under the latest 2024 tax regime!**")
+
+# 📌 Sidebar - User Inputs
+st.sidebar.header("🔧 Enter Your Income Details")
+income = st.sidebar.number_input("💰 Total Annual Income (₹)", min_value=0, value=800000, step=5000, format="%.0f")
+other_income = st.sidebar.number_input("💵 Other Income (Rent, Interest, etc.)", min_value=0, value=0, step=5000, format="%.0f")
+deductions = st.sidebar.number_input("📉 Total Deductions (₹)", min_value=0, value=50000, step=5000, format="%.0f")
+tax_regime = st.sidebar.radio("📜 Choose Tax Regime", ["New Regime (2024)", "Old Regime"])
+
+# 🏦 Compute Tax for New Regime (2024)
+def calculate_new_tax(income):
+    tax = 0
+    slabs = [(300000, 0), (600000, 0.05), (900000, 0.1), (1200000, 0.15), (1500000, 0.2), (float('inf'), 0.3)]
+    
+    prev_limit = 0
+    for limit, rate in slabs:
+        if income > prev_limit:
+            taxable_amount = min(income, limit) - prev_limit
+            tax += taxable_amount * rate
+        prev_limit = limit
+
+    # Apply Section 87A rebate if income ≤ ₹7L
+    if income <= 700000:
+        tax = 0
+    return round(tax, 2)
+
+# 🏦 Compute Tax for Old Regime
+def calculate_old_tax(income, deductions):
+    taxable_income = max(0, income - deductions)
+    slabs = [(250000, 0), (500000, 0.05), (1000000, 0.2), (float('inf'), 0.3)]
+    
+    tax = 0
+    prev_limit = 0
+    for limit, rate in slabs:
+        if taxable_income > prev_limit:
+            taxable_amount = min(taxable_income, limit) - prev_limit
+            tax += taxable_amount * rate
+        prev_limit = limit
+
+    # Apply Section 87A rebate if income ≤ ₹5L (Old Regime)
+    if taxable_income <= 500000:
+        tax = 0
+    return round(tax, 2)
+
+# 💰 Compute Taxes Based on Selected Regime
+total_income = income + other_income
+if tax_regime == "New Regime (2024)":
+    tax_payable = calculate_new_tax(total_income)
+else:
+    tax_payable = calculate_old_tax(total_income, deductions)
+
+# 📊 Display Results
+st.subheader("📜 Tax Calculation Summary")
+st.success(f"💰 **Total Tax Payable:** ₹{tax_payable:,.2f}")
+if tax_regime == "New Regime (2024)":
+    st.info("✅ **New Regime Benefits:** No deductions but lower tax rates.")
+else:
+    st.warning(f"🛠 **Old Regime Deductions Applied:** ₹{deductions:,.2f}")
+
+# 📈 Tax Comparison Graph
+st.subheader("📊 Tax Comparison: Old vs New Regime")
+old_tax = calculate_old_tax(total_income, deductions)
+new_tax = calculate_new_tax(total_income)
+
+tax_data = pd.DataFrame({
+    "Tax Regime": ["Old Regime", "New Regime"],
+    "Tax Amount (₹)": [old_tax, new_tax]
+})
+st.bar_chart(tax_data.set_index("Tax Regime"))
+
+# 📥 Download Tax Report
+tax_report = pd.DataFrame({
+    "Income Details": ["Total Income", "Other Income", "Deductions", "Tax Payable"],
+    "Amount (₹)": [total_income, other_income, deductions, tax_payable]
+})
+csv_data = tax_report.to_csv(index=False).encode('utf-8')
+st.download_button("📥 Download Tax Report (CSV)", csv_data, "tax_report_2024.csv", "text/csv")
+
+# 💡 Tax Insights
+st.subheader("💡 Tax-Saving Tips!")
+st.write("✅ **Invest in 80C instruments** (PPF, LIC, EPF) to save tax under the old regime.")
+st.write("✅ **Consider HRA & Medical Insurance (80D)** to reduce taxable income.")
+st.write("✅ **Use the new regime if you have fewer deductions & want simplified tax filing!**")
 
 
 
