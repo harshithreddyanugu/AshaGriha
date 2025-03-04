@@ -223,9 +223,13 @@ st.markdown("🔹 **Use this tool to plan your loan better and make smart financ
  
 
 
+import streamlit as st
+import pandas as pd
+import matplotlib.pyplot as plt
+import seaborn as sns
 
 # 📂 Load CSV Data
-file_path = "business_expense_income_tracker.csv"
+file_path = "/mnt/data/business_expense_income_tracker.csv"
 df = pd.read_csv(file_path)
 
 # ✅ Debug: Print actual column names to check for issues
@@ -280,7 +284,7 @@ profit = income_total - expense_total
 col1, col2, col3 = st.columns(3)
 col1.metric("💵 Total Income", f"₹{income_total:,.2f}")
 col2.metric("💸 Total Expenses", f"₹{expense_total:,.2f}")
-col3.metric("📈 Net Profit", f"₹{profit:,.2f}", delta=profit, delta_color="normal")
+col3.metric("📈 Net Profit", f"₹{profit:,.2f}", delta=float(profit), delta_color="normal")
 
 # 📉 Income vs Expenses Over Time
 st.subheader("📈 Income & Expense Trend Over Time")
@@ -311,3 +315,7 @@ st.write("✅ **Monitor High Spending Areas:** Identify categories where you're 
 st.write("✅ **Analyze Profit Trends:** Track which months have the highest & lowest profits.")
 st.write("✅ **Optimize Budgeting:** Compare income and expenses to adjust your business strategy.")
 st.write("🚀 **Take control of your business finances and increase profitability!**")
+
+
+
+
