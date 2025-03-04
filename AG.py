@@ -229,23 +229,22 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 
 # 📂 Load CSV Data
-file_path = "business_expense_tracker_yearly.csv"
+file_path = ""
 df = pd.read_csv(file_path)
 
 # ✅ Debug: Print column names to check for issues
 st.write("🔍 Debug: Column Names ->", df.columns.tolist())
 
-# ✅ Fix column names (removing hidden spaces or encoding issues)
+# ✅ Standardize column names
 df.columns = df.columns.str.strip()
+df.rename(columns={"Amount (â‚¹)": "Amount"}, inplace=True)
 
-# ✅ Check & Rename Columns if needed
-expected_columns = {"Date": "Date", "Category": "Category", "Amount (â‚¹)": "Amount", "Type": "Type", "Description": "Description"}
-df.rename(columns={col: expected_columns[col] for col in df.columns if col in expected_columns}, inplace=True)
-
-# ✅ Verify if "Type" column exists before proceeding
-if "Type" not in df.columns:
-    st.error("⚠️ 'Type' column is missing! Please check the CSV file format.")
-    df["Type"] = "Unknown"  # Create a default column to avoid errors
+# ✅ Verify if required columns exist
+required_columns = {"Date", "Category", "Amount", "Type", "Description"}
+missing_columns = required_columns - set(df.columns)
+if missing_columns:
+    st.error(f"⚠️ Missing columns in the uploaded CSV: {missing_columns}")
+    st.stop()
 
 # ✅ Convert "Date" to datetime format
 df["Date"] = pd.to_datetime(df["Date"], errors='coerce')
@@ -264,8 +263,8 @@ date_range = st.sidebar.date_input("📅 Select Date Range:", [df["Date"].min(),
 filtered_df = df.copy()
 if category_filter:
     filtered_df = filtered_df[filtered_df["Category"].isin(category_filter)]
-if "Type" in filtered_df.columns and type_filter != "All":
-    filtered_df = filtered_df[filtered_df["Type"].str.strip() == type_filter]
+if type_filter != "All":
+    filtered_df = filtered_df[filtered_df["Type"].astype(str).str.strip() == type_filter]
 filtered_df = filtered_df[(filtered_df["Date"] >= pd.to_datetime(date_range[0])) & 
                           (filtered_df["Date"] <= pd.to_datetime(date_range[1]))]
 
@@ -275,13 +274,9 @@ st.dataframe(filtered_df, use_container_width=True)
 
 # 📊 Financial Overview
 st.subheader("💰 Financial Summary")
-if "Type" in filtered_df.columns:
-    income_total = filtered_df[filtered_df["Type"].str.strip() == "Income"]["Amount"].sum()
-    expense_total = filtered_df[filtered_df["Type"].str.strip() == "Expense"]["Amount"].sum()
-    profit = income_total - expense_total
-else:
-    st.error("⚠️ 'Type' column is missing! Please check the CSV file format.")
-    income_total, expense_total, profit = 0, 0, 0
+income_total = filtered_df[filtered_df["Type"].astype(str).str.strip() == "Income"]["Amount"].sum()
+expense_total = filtered_df[filtered_df["Type"].astype(str).str.strip() == "Expense"]["Amount"].sum()
+profit = income_total - expense_total
 
 col1, col2, col3 = st.columns(3)
 col1.metric("💵 Total Income", f"₹{income_total:,.2f}")
@@ -290,28 +285,22 @@ col3.metric("📈 Net Profit", f"₹{profit:,.2f}")
 
 # 📉 Income vs Expenses Over Time
 st.subheader("📈 Income & Expense Trend")
-if "Type" in filtered_df.columns:
-    fig, ax = plt.subplots(figsize=(10, 5))
-    sns.lineplot(data=filtered_df, x="Date", y="Amount", hue="Type", marker="o", ax=ax)
-    plt.xticks(rotation=45)
-    plt.title("Income vs. Expenses Over Time")
-    st.pyplot(fig)
-else:
-    st.warning("⚠️ Cannot display trend graph as 'Type' column is missing.")
+fig, ax = plt.subplots(figsize=(10, 5))
+sns.lineplot(data=filtered_df, x="Date", y="Amount", hue="Type", marker="o", ax=ax)
+plt.xticks(rotation=45)
+plt.title("Income vs. Expenses Over Time")
+st.pyplot(fig)
 
 # 🍰 Expense Breakdown Chart
 st.subheader("📊 Expense Distribution by Category")
-if "Type" in filtered_df.columns:
-    expense_data = filtered_df[filtered_df["Type"].str.strip() == "Expense"].groupby("Category")["Amount"].sum()
-    if not expense_data.empty:
-        fig, ax = plt.subplots()
-        expense_data.plot(kind="pie", autopct="%1.1f%%", colors=["red", "blue", "green", "yellow"], ax=ax)
-        ax.set_ylabel("")
-        st.pyplot(fig)
-    else:
-        st.info("ℹ️ No expenses recorded for the selected filters.")
+expense_data = filtered_df[filtered_df["Type"].astype(str).str.strip() == "Expense"].groupby("Category")["Amount"].sum()
+if not expense_data.empty:
+    fig, ax = plt.subplots()
+    expense_data.plot(kind="pie", autopct="%1.1f%%", colors=["red", "blue", "green", "yellow"], ax=ax)
+    ax.set_ylabel("")
+    st.pyplot(fig)
 else:
-    st.warning("⚠️ Cannot display expense breakdown as 'Type' column is missing.")
+    st.info("ℹ️ No expenses recorded for the selected filters.")
 
 # 📥 Download Button
 csv_data = filtered_df.to_csv(index=False).encode('utf-8')
