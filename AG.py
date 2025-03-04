@@ -229,7 +229,7 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 
 # 📂 Load CSV Data
-file_path = ""
+file_path = "business_expense_tracker_yearly.csv"
 df = pd.read_csv(file_path)
 
 # ✅ Fix column names (removing hidden spaces or encoding issues)
