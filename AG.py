@@ -221,18 +221,18 @@ st.write("💡 **Final Advice:** A well-planned loan can help you achieve your f
 st.markdown("🔹 **Use this tool to plan your loan better and make smart financial decisions!** 🚀")
 
  
-import streamlit as st
-import pandas as pd
-import matplotlib.pyplot as plt
-import seaborn as sns
 
-# 📂 Load or Upload CSV Data
-file_path = "business_expense_tracker_yearly.csv"
+
+# 📂 Load CSV Data
+file_path = ""
 df = pd.read_csv(file_path)
 
-# ✅ Standardize column names
+# ✅ Debug: Print actual column names to check for issues
+st.write("🔍 Debug: Column Names ->", df.columns.tolist())
+
+# ✅ Standardize column names (strip spaces, fix encoding issues)
 df.columns = df.columns.str.strip()
-df.rename(columns={"Amount (â‚¹)": "Amount"}, inplace=True)
+df.rename(columns={"Amount (â‚¹)": "Amount"}, inplace=True)  # Fix incorrect encoding
 
 # ✅ Verify if required columns exist
 required_columns = {"Date", "Category", "Amount", "Type", "Description"}
