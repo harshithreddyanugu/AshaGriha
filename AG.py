@@ -222,9 +222,13 @@ st.markdown("🔹 **Use this tool to plan your loan better and make smart financ
 
  
 
+import streamlit as st
+import pandas as pd
+import matplotlib.pyplot as plt
+import seaborn as sns
 
 # 📂 Load CSV Data
-file_path = "business_expense_tracker_yearly.csv"
+file_path = "/mnt/data/business_expense_income_tracker.csv"
 df = pd.read_csv(file_path)
 
 # ✅ Debug: Print actual column names to check for issues
@@ -232,7 +236,7 @@ st.write("🔍 Debug: Column Names ->", df.columns.tolist())
 
 # ✅ Standardize column names (strip spaces, fix encoding issues)
 df.columns = df.columns.str.strip()
-df.rename(columns={"Amount (â‚¹)": "Amount"}, inplace=True)  # Fix incorrect encoding
+df.rename(columns={"Amount (₹)": "Amount"}, inplace=True)  # Fix incorrect encoding
 
 # ✅ Verify if required columns exist
 required_columns = {"Date", "Category", "Amount", "Type", "Description"}
@@ -310,5 +314,3 @@ st.write("✅ **Monitor High Spending Areas:** Identify categories where you're 
 st.write("✅ **Analyze Profit Trends:** Track which months have the highest & lowest profits.")
 st.write("✅ **Optimize Budgeting:** Compare income and expenses to adjust your business strategy.")
 st.write("🚀 **Take control of your business finances and increase profitability!**")
-
-
