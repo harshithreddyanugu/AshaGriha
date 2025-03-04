@@ -1,0 +1,366 @@
+Date,Category,Amount (₹),Type,Description
+2023-01-01,Utilities,45617,Expense,Utilities transaction on January 01
+2023-01-02,Operations,14018,Expense,Operations transaction on January 02
+2023-01-03,Marketing,37090,Expense,Marketing transaction on January 03
+2023-01-04,Sales,24427,Income,Sales transaction on January 04
+2023-01-05,Travel,41995,Expense,Travel transaction on January 05
+2023-01-06,Marketing,49101,Expense,Marketing transaction on January 06
+2023-01-07,Marketing,5448,Expense,Marketing transaction on January 07
+2023-01-08,Salary,9850,Expense,Salary transaction on January 08
+2023-01-09,Marketing,38588,Expense,Marketing transaction on January 09
+2023-01-10,Miscellaneous,49516,Expense,Miscellaneous transaction on January 10
+2023-01-11,Consulting,78634,Income,Consulting transaction on January 11
+2023-01-12,Rental Income,48866,Income,Rental Income transaction on January 12
+2023-01-13,Rental Income,93035,Income,Rental Income transaction on January 13
+2023-01-14,Investments,40991,Income,Investments transaction on January 14
+2023-01-15,Rental Income,39972,Income,Rental Income transaction on January 15
+2023-01-16,Rental Income,19487,Income,Rental Income transaction on January 16
+2023-01-17,Rent,10148,Expense,Rent transaction on January 17
+2023-01-18,Utilities,39891,Expense,Utilities transaction on January 18
+2023-01-19,Salary,5024,Expense,Salary transaction on January 19
+2023-01-20,Freelance,41243,Income,Freelance transaction on January 20
+2023-01-21,Rent,31933,Expense,Rent transaction on January 21
+2023-01-22,Travel,14429,Expense,Travel transaction on January 22
+2023-01-23,Consulting,27596,Income,Consulting transaction on January 23
+2023-01-24,Sales,54824,Income,Sales transaction on January 24
+2023-01-25,Utilities,11901,Expense,Utilities transaction on January 25
+2023-01-26,Salary,43749,Expense,Salary transaction on January 26
+2023-01-27,Operations,34583,Expense,Operations transaction on January 27
+2023-01-28,Travel,17448,Expense,Travel transaction on January 28
+2023-01-29,Salary,27341,Expense,Salary transaction on January 29
+2023-01-30,Utilities,10381,Expense,Utilities transaction on January 30
+2023-01-31,Operations,21469,Expense,Operations transaction on January 31
+2023-02-01,Freelance,41407,Income,Freelance transaction on February 01
+2023-02-02,Travel,18788,Expense,Travel transaction on February 02
+2023-02-03,Operations,42075,Expense,Operations transaction on February 03
+2023-02-04,Rental Income,29695,Income,Rental Income transaction on February 04
+2023-02-05,Rent,20826,Expense,Rent transaction on February 05
+2023-02-06,Rental Income,67076,Income,Rental Income transaction on February 06
+2023-02-07,Consulting,97437,Income,Consulting transaction on February 07
+2023-02-08,Marketing,17471,Expense,Marketing transaction on February 08
+2023-02-09,Operations,16298,Expense,Operations transaction on February 09
+2023-02-10,Utilities,34188,Expense,Utilities transaction on February 10
+2023-02-11,Investments,53430,Income,Investments transaction on February 11
+2023-02-12,Rental Income,96458,Income,Rental Income transaction on February 12
+2023-02-13,Consulting,97230,Income,Consulting transaction on February 13
+2023-02-14,Operations,36577,Expense,Operations transaction on February 14
+2023-02-15,Consulting,66534,Income,Consulting transaction on February 15
+2023-02-16,Rental Income,17737,Income,Rental Income transaction on February 16
+2023-02-17,Salary,15927,Expense,Salary transaction on February 17
+2023-02-18,Consulting,10896,Income,Consulting transaction on February 18
+2023-02-19,Rent,4066,Expense,Rent transaction on February 19
+2023-02-20,Investments,87433,Income,Investments transaction on February 20
+2023-02-21,Consulting,40697,Income,Consulting transaction on February 21
+2023-02-22,Sales,14111,Income,Sales transaction on February 22
+2023-02-23,Marketing,44099,Expense,Marketing transaction on February 23
+2023-02-24,Travel,46662,Expense,Travel transaction on February 24
+2023-02-25,Investments,70714,Income,Investments transaction on February 25
+2023-02-26,Utilities,11556,Expense,Utilities transaction on February 26
+2023-02-27,Consulting,75275,Income,Consulting transaction on February 27
+2023-02-28,Miscellaneous,4843,Expense,Miscellaneous transaction on February 28
+2023-03-01,Investments,34430,Income,Investments transaction on March 01
+2023-03-02,Utilities,34263,Expense,Utilities transaction on March 02
+2023-03-03,Sales,84958,Income,Sales transaction on March 03
+2023-03-04,Rent,35745,Expense,Rent transaction on March 04
+2023-03-05,Investments,18750,Income,Investments transaction on March 05
+2023-03-06,Travel,24621,Expense,Travel transaction on March 06
+2023-03-07,Freelance,34978,Income,Freelance transaction on March 07
+2023-03-08,Consulting,74911,Income,Consulting transaction on March 08
+2023-03-09,Rental Income,93149,Income,Rental Income transaction on March 09
+2023-03-10,Consulting,51764,Income,Consulting transaction on March 10
+2023-03-11,Freelance,32668,Income,Freelance transaction on March 11
+2023-03-12,Travel,32998,Expense,Travel transaction on March 12
+2023-03-13,Investments,72749,Income,Investments transaction on March 13
+2023-03-14,Travel,31995,Expense,Travel transaction on March 14
+2023-03-15,Freelance,70370,Income,Freelance transaction on March 15
+2023-03-16,Rental Income,66948,Income,Rental Income transaction on March 16
+2023-03-17,Rental Income,44171,Income,Rental Income transaction on March 17
+2023-03-18,Utilities,35261,Expense,Utilities transaction on March 18
+2023-03-19,Rental Income,83881,Income,Rental Income transaction on March 19
+2023-03-20,Rent,1999,Expense,Rent transaction on March 20
+2023-03-21,Travel,15892,Expense,Travel transaction on March 21
+2023-03-22,Rental Income,30828,Income,Rental Income transaction on March 22
+2023-03-23,Investments,31375,Income,Investments transaction on March 23
+2023-03-24,Sales,39785,Income,Sales transaction on March 24
+2023-03-25,Sales,67321,Income,Sales transaction on March 25
+2023-03-26,Consulting,78409,Income,Consulting transaction on March 26
+2023-03-27,Rent,28990,Expense,Rent transaction on March 27
+2023-03-28,Marketing,11220,Expense,Marketing transaction on March 28
+2023-03-29,Consulting,22533,Income,Consulting transaction on March 29
+2023-03-30,Investments,57040,Income,Investments transaction on March 30
+2023-03-31,Rent,13256,Expense,Rent transaction on March 31
+2023-04-01,Operations,45729,Expense,Operations transaction on April 01
+2023-04-02,Consulting,57656,Income,Consulting transaction on April 02
+2023-04-03,Marketing,7550,Expense,Marketing transaction on April 03
+2023-04-04,Operations,36231,Expense,Operations transaction on April 04
+2023-04-05,Rental Income,33327,Income,Rental Income transaction on April 05
+2023-04-06,Utilities,15281,Expense,Utilities transaction on April 06
+2023-04-07,Rent,17986,Expense,Rent transaction on April 07
+2023-04-08,Miscellaneous,21785,Expense,Miscellaneous transaction on April 08
+2023-04-09,Operations,5367,Expense,Operations transaction on April 09
+2023-04-10,Consulting,96493,Income,Consulting transaction on April 10
+2023-04-11,Marketing,5861,Expense,Marketing transaction on April 11
+2023-04-12,Marketing,25569,Expense,Marketing transaction on April 12
+2023-04-13,Freelance,30398,Income,Freelance transaction on April 13
+2023-04-14,Rental Income,29774,Income,Rental Income transaction on April 14
+2023-04-15,Salary,7733,Expense,Salary transaction on April 15
+2023-04-16,Operations,14383,Expense,Operations transaction on April 16
+2023-04-17,Sales,81534,Income,Sales transaction on April 17
+2023-04-18,Operations,39279,Expense,Operations transaction on April 18
+2023-04-19,Operations,2617,Expense,Operations transaction on April 19
+2023-04-20,Consulting,85865,Income,Consulting transaction on April 20
+2023-04-21,Salary,32505,Expense,Salary transaction on April 21
+2023-04-22,Sales,98695,Income,Sales transaction on April 22
+2023-04-23,Salary,33890,Expense,Salary transaction on April 23
+2023-04-24,Consulting,90011,Income,Consulting transaction on April 24
+2023-04-25,Miscellaneous,2493,Expense,Miscellaneous transaction on April 25
+2023-04-26,Consulting,90482,Income,Consulting transaction on April 26
+2023-04-27,Salary,38591,Expense,Salary transaction on April 27
+2023-04-28,Freelance,79722,Income,Freelance transaction on April 28
+2023-04-29,Salary,25321,Expense,Salary transaction on April 29
+2023-04-30,Utilities,29495,Expense,Utilities transaction on April 30
+2023-05-01,Sales,70567,Income,Sales transaction on May 01
+2023-05-02,Consulting,89384,Income,Consulting transaction on May 02
+2023-05-03,Rent,3676,Expense,Rent transaction on May 03
+2023-05-04,Marketing,46653,Expense,Marketing transaction on May 04
+2023-05-05,Travel,41560,Expense,Travel transaction on May 05
+2023-05-06,Marketing,48198,Expense,Marketing transaction on May 06
+2023-05-07,Investments,74319,Income,Investments transaction on May 07
+2023-05-08,Rental Income,51620,Income,Rental Income transaction on May 08
+2023-05-09,Marketing,28864,Expense,Marketing transaction on May 09
+2023-05-10,Operations,47288,Expense,Operations transaction on May 10
+2023-05-11,Rent,45616,Expense,Rent transaction on May 11
+2023-05-12,Salary,12871,Expense,Salary transaction on May 12
+2023-05-13,Rental Income,63959,Income,Rental Income transaction on May 13
+2023-05-14,Sales,71516,Income,Sales transaction on May 14
+2023-05-15,Freelance,12067,Income,Freelance transaction on May 15
+2023-05-16,Sales,85340,Income,Sales transaction on May 16
+2023-05-17,Miscellaneous,31119,Expense,Miscellaneous transaction on May 17
+2023-05-18,Freelance,57866,Income,Freelance transaction on May 18
+2023-05-19,Freelance,37445,Income,Freelance transaction on May 19
+2023-05-20,Consulting,42922,Income,Consulting transaction on May 20
+2023-05-21,Marketing,26684,Expense,Marketing transaction on May 21
+2023-05-22,Freelance,65322,Income,Freelance transaction on May 22
+2023-05-23,Utilities,44920,Expense,Utilities transaction on May 23
+2023-05-24,Freelance,18518,Income,Freelance transaction on May 24
+2023-05-25,Miscellaneous,43127,Expense,Miscellaneous transaction on May 25
+2023-05-26,Utilities,46568,Expense,Utilities transaction on May 26
+2023-05-27,Rent,37751,Expense,Rent transaction on May 27
+2023-05-28,Travel,24389,Expense,Travel transaction on May 28
+2023-05-29,Rental Income,66531,Income,Rental Income transaction on May 29
+2023-05-30,Operations,5823,Expense,Operations transaction on May 30
+2023-05-31,Marketing,44654,Expense,Marketing transaction on May 31
+2023-06-01,Rent,11261,Expense,Rent transaction on June 01
+2023-06-02,Freelance,65390,Income,Freelance transaction on June 02
+2023-06-03,Freelance,98468,Income,Freelance transaction on June 03
+2023-06-04,Rental Income,88710,Income,Rental Income transaction on June 04
+2023-06-05,Operations,2941,Expense,Operations transaction on June 05
+2023-06-06,Travel,1962,Expense,Travel transaction on June 06
+2023-06-07,Consulting,26473,Income,Consulting transaction on June 07
+2023-06-08,Investments,88553,Income,Investments transaction on June 08
+2023-06-09,Freelance,38886,Income,Freelance transaction on June 09
+2023-06-10,Consulting,71798,Income,Consulting transaction on June 10
+2023-06-11,Utilities,21159,Expense,Utilities transaction on June 11
+2023-06-12,Operations,15443,Expense,Operations transaction on June 12
+2023-06-13,Travel,6727,Expense,Travel transaction on June 13
+2023-06-14,Operations,33073,Expense,Operations transaction on June 14
+2023-06-15,Sales,71013,Income,Sales transaction on June 15
+2023-06-16,Salary,16693,Expense,Salary transaction on June 16
+2023-06-17,Sales,35947,Income,Sales transaction on June 17
+2023-06-18,Marketing,13087,Expense,Marketing transaction on June 18
+2023-06-19,Consulting,24204,Income,Consulting transaction on June 19
+2023-06-20,Freelance,12361,Income,Freelance transaction on June 20
+2023-06-21,Operations,26902,Expense,Operations transaction on June 21
+2023-06-22,Consulting,14250,Income,Consulting transaction on June 22
+2023-06-23,Utilities,3057,Expense,Utilities transaction on June 23
+2023-06-24,Operations,7460,Expense,Operations transaction on June 24
+2023-06-25,Utilities,27942,Expense,Utilities transaction on June 25
+2023-06-26,Sales,14275,Income,Sales transaction on June 26
+2023-06-27,Sales,14941,Income,Sales transaction on June 27
+2023-06-28,Sales,71103,Income,Sales transaction on June 28
+2023-06-29,Freelance,52651,Income,Freelance transaction on June 29
+2023-06-30,Utilities,25546,Expense,Utilities transaction on June 30
+2023-07-01,Freelance,93903,Income,Freelance transaction on July 01
+2023-07-02,Travel,20566,Expense,Travel transaction on July 02
+2023-07-03,Investments,66807,Income,Investments transaction on July 03
+2023-07-04,Operations,3855,Expense,Operations transaction on July 04
+2023-07-05,Rent,12285,Expense,Rent transaction on July 05
+2023-07-06,Consulting,68387,Income,Consulting transaction on July 06
+2023-07-07,Operations,21519,Expense,Operations transaction on July 07
+2023-07-08,Investments,78725,Income,Investments transaction on July 08
+2023-07-09,Sales,92961,Income,Sales transaction on July 09
+2023-07-10,Marketing,3896,Expense,Marketing transaction on July 10
+2023-07-11,Miscellaneous,41621,Expense,Miscellaneous transaction on July 11
+2023-07-12,Rent,42377,Expense,Rent transaction on July 12
+2023-07-13,Consulting,47549,Income,Consulting transaction on July 13
+2023-07-14,Investments,44134,Income,Investments transaction on July 14
+2023-07-15,Freelance,18392,Income,Freelance transaction on July 15
+2023-07-16,Freelance,81465,Income,Freelance transaction on July 16
+2023-07-17,Consulting,32578,Income,Consulting transaction on July 17
+2023-07-18,Rental Income,65717,Income,Rental Income transaction on July 18
+2023-07-19,Investments,67320,Income,Investments transaction on July 19
+2023-07-20,Rental Income,60672,Income,Rental Income transaction on July 20
+2023-07-21,Consulting,49413,Income,Consulting transaction on July 21
+2023-07-22,Rental Income,11030,Income,Rental Income transaction on July 22
+2023-07-23,Utilities,18729,Expense,Utilities transaction on July 23
+2023-07-24,Utilities,2467,Expense,Utilities transaction on July 24
+2023-07-25,Investments,75658,Income,Investments transaction on July 25
+2023-07-26,Investments,20934,Income,Investments transaction on July 26
+2023-07-27,Miscellaneous,33813,Expense,Miscellaneous transaction on July 27
+2023-07-28,Sales,92012,Income,Sales transaction on July 28
+2023-07-29,Operations,40732,Expense,Operations transaction on July 29
+2023-07-30,Miscellaneous,24023,Expense,Miscellaneous transaction on July 30
+2023-07-31,Freelance,47253,Income,Freelance transaction on July 31
+2023-08-01,Sales,66459,Income,Sales transaction on August 01
+2023-08-02,Utilities,37231,Expense,Utilities transaction on August 02
+2023-08-03,Freelance,75886,Income,Freelance transaction on August 03
+2023-08-04,Salary,20662,Expense,Salary transaction on August 04
+2023-08-05,Rental Income,69488,Income,Rental Income transaction on August 05
+2023-08-06,Investments,86289,Income,Investments transaction on August 06
+2023-08-07,Consulting,60416,Income,Consulting transaction on August 07
+2023-08-08,Rent,35422,Expense,Rent transaction on August 08
+2023-08-09,Rental Income,82709,Income,Rental Income transaction on August 09
+2023-08-10,Travel,38248,Expense,Travel transaction on August 10
+2023-08-11,Miscellaneous,34492,Expense,Miscellaneous transaction on August 11
+2023-08-12,Sales,31615,Income,Sales transaction on August 12
+2023-08-13,Rent,7574,Expense,Rent transaction on August 13
+2023-08-14,Marketing,33213,Expense,Marketing transaction on August 14
+2023-08-15,Miscellaneous,25741,Expense,Miscellaneous transaction on August 15
+2023-08-16,Freelance,66752,Income,Freelance transaction on August 16
+2023-08-17,Rental Income,46851,Income,Rental Income transaction on August 17
+2023-08-18,Rent,22555,Expense,Rent transaction on August 18
+2023-08-19,Rent,5104,Expense,Rent transaction on August 19
+2023-08-20,Sales,23377,Income,Sales transaction on August 20
+2023-08-21,Sales,90568,Income,Sales transaction on August 21
+2023-08-22,Operations,29229,Expense,Operations transaction on August 22
+2023-08-23,Sales,62368,Income,Sales transaction on August 23
+2023-08-24,Consulting,16466,Income,Consulting transaction on August 24
+2023-08-25,Operations,9696,Expense,Operations transaction on August 25
+2023-08-26,Operations,3959,Expense,Operations transaction on August 26
+2023-08-27,Miscellaneous,38078,Expense,Miscellaneous transaction on August 27
+2023-08-28,Sales,33170,Income,Sales transaction on August 28
+2023-08-29,Rental Income,34515,Income,Rental Income transaction on August 29
+2023-08-30,Operations,2871,Expense,Operations transaction on August 30
+2023-08-31,Travel,42541,Expense,Travel transaction on August 31
+2023-09-01,Rental Income,22129,Income,Rental Income transaction on September 01
+2023-09-02,Travel,43866,Expense,Travel transaction on September 02
+2023-09-03,Rent,41580,Expense,Rent transaction on September 03
+2023-09-04,Consulting,52993,Income,Consulting transaction on September 04
+2023-09-05,Travel,18187,Expense,Travel transaction on September 05
+2023-09-06,Consulting,69240,Income,Consulting transaction on September 06
+2023-09-07,Travel,44938,Expense,Travel transaction on September 07
+2023-09-08,Consulting,98696,Income,Consulting transaction on September 08
+2023-09-09,Sales,45274,Income,Sales transaction on September 09
+2023-09-10,Operations,6975,Expense,Operations transaction on September 10
+2023-09-11,Travel,26531,Expense,Travel transaction on September 11
+2023-09-12,Operations,34961,Expense,Operations transaction on September 12
+2023-09-13,Consulting,39803,Income,Consulting transaction on September 13
+2023-09-14,Marketing,44865,Expense,Marketing transaction on September 14
+2023-09-15,Freelance,40616,Income,Freelance transaction on September 15
+2023-09-16,Utilities,1444,Expense,Utilities transaction on September 16
+2023-09-17,Investments,55570,Income,Investments transaction on September 17
+2023-09-18,Marketing,48481,Expense,Marketing transaction on September 18
+2023-09-19,Operations,1816,Expense,Operations transaction on September 19
+2023-09-20,Freelance,95350,Income,Freelance transaction on September 20
+2023-09-21,Rental Income,34385,Income,Rental Income transaction on September 21
+2023-09-22,Consulting,81186,Income,Consulting transaction on September 22
+2023-09-23,Marketing,14621,Expense,Marketing transaction on September 23
+2023-09-24,Utilities,43741,Expense,Utilities transaction on September 24
+2023-09-25,Consulting,75231,Income,Consulting transaction on September 25
+2023-09-26,Consulting,18700,Income,Consulting transaction on September 26
+2023-09-27,Consulting,63954,Income,Consulting transaction on September 27
+2023-09-28,Rent,16002,Expense,Rent transaction on September 28
+2023-09-29,Freelance,81503,Income,Freelance transaction on September 29
+2023-09-30,Rental Income,18896,Income,Rental Income transaction on September 30
+2023-10-01,Rent,41600,Expense,Rent transaction on October 01
+2023-10-02,Investments,92661,Income,Investments transaction on October 02
+2023-10-03,Rent,44001,Expense,Rent transaction on October 03
+2023-10-04,Miscellaneous,4163,Expense,Miscellaneous transaction on October 04
+2023-10-05,Rent,22059,Expense,Rent transaction on October 05
+2023-10-06,Freelance,65881,Income,Freelance transaction on October 06
+2023-10-07,Marketing,14357,Expense,Marketing transaction on October 07
+2023-10-08,Salary,23214,Expense,Salary transaction on October 08
+2023-10-09,Investments,36515,Income,Investments transaction on October 09
+2023-10-10,Rental Income,73630,Income,Rental Income transaction on October 10
+2023-10-11,Investments,15458,Income,Investments transaction on October 11
+2023-10-12,Freelance,72190,Income,Freelance transaction on October 12
+2023-10-13,Salary,16188,Expense,Salary transaction on October 13
+2023-10-14,Freelance,48565,Income,Freelance transaction on October 14
+2023-10-15,Consulting,16252,Income,Consulting transaction on October 15
+2023-10-16,Rent,38736,Expense,Rent transaction on October 16
+2023-10-17,Investments,75532,Income,Investments transaction on October 17
+2023-10-18,Sales,85102,Income,Sales transaction on October 18
+2023-10-19,Miscellaneous,4264,Expense,Miscellaneous transaction on October 19
+2023-10-20,Freelance,59594,Income,Freelance transaction on October 20
+2023-10-21,Investments,39104,Income,Investments transaction on October 21
+2023-10-22,Sales,76464,Income,Sales transaction on October 22
+2023-10-23,Sales,33938,Income,Sales transaction on October 23
+2023-10-24,Consulting,94316,Income,Consulting transaction on October 24
+2023-10-25,Marketing,12343,Expense,Marketing transaction on October 25
+2023-10-26,Freelance,34185,Income,Freelance transaction on October 26
+2023-10-27,Marketing,16765,Expense,Marketing transaction on October 27
+2023-10-28,Sales,11394,Income,Sales transaction on October 28
+2023-10-29,Marketing,16459,Expense,Marketing transaction on October 29
+2023-10-30,Sales,88300,Income,Sales transaction on October 30
+2023-10-31,Rental Income,56254,Income,Rental Income transaction on October 31
+2023-11-01,Consulting,50989,Income,Consulting transaction on November 01
+2023-11-02,Rental Income,38826,Income,Rental Income transaction on November 02
+2023-11-03,Rental Income,66788,Income,Rental Income transaction on November 03
+2023-11-04,Travel,36735,Expense,Travel transaction on November 04
+2023-11-05,Rental Income,68908,Income,Rental Income transaction on November 05
+2023-11-06,Salary,23889,Expense,Salary transaction on November 06
+2023-11-07,Utilities,19426,Expense,Utilities transaction on November 07
+2023-11-08,Sales,20561,Income,Sales transaction on November 08
+2023-11-09,Sales,97351,Income,Sales transaction on November 09
+2023-11-10,Marketing,7236,Expense,Marketing transaction on November 10
+2023-11-11,Miscellaneous,10561,Expense,Miscellaneous transaction on November 11
+2023-11-12,Operations,1001,Expense,Operations transaction on November 12
+2023-11-13,Salary,12508,Expense,Salary transaction on November 13
+2023-11-14,Miscellaneous,49741,Expense,Miscellaneous transaction on November 14
+2023-11-15,Travel,32006,Expense,Travel transaction on November 15
+2023-11-16,Salary,14533,Expense,Salary transaction on November 16
+2023-11-17,Utilities,33972,Expense,Utilities transaction on November 17
+2023-11-18,Marketing,48738,Expense,Marketing transaction on November 18
+2023-11-19,Investments,73278,Income,Investments transaction on November 19
+2023-11-20,Rental Income,95330,Income,Rental Income transaction on November 20
+2023-11-21,Investments,37569,Income,Investments transaction on November 21
+2023-11-22,Freelance,97323,Income,Freelance transaction on November 22
+2023-11-23,Salary,29198,Expense,Salary transaction on November 23
+2023-11-24,Miscellaneous,32372,Expense,Miscellaneous transaction on November 24
+2023-11-25,Salary,7989,Expense,Salary transaction on November 25
+2023-11-26,Salary,38262,Expense,Salary transaction on November 26
+2023-11-27,Marketing,34666,Expense,Marketing transaction on November 27
+2023-11-28,Utilities,37037,Expense,Utilities transaction on November 28
+2023-11-29,Sales,66016,Income,Sales transaction on November 29
+2023-11-30,Sales,87963,Income,Sales transaction on November 30
+2023-12-01,Rent,31747,Expense,Rent transaction on December 01
+2023-12-02,Rental Income,74315,Income,Rental Income transaction on December 02
+2023-12-03,Investments,93241,Income,Investments transaction on December 03
+2023-12-04,Freelance,63084,Income,Freelance transaction on December 04
+2023-12-05,Rental Income,52202,Income,Rental Income transaction on December 05
+2023-12-06,Travel,15367,Expense,Travel transaction on December 06
+2023-12-07,Rent,15218,Expense,Rent transaction on December 07
+2023-12-08,Travel,27449,Expense,Travel transaction on December 08
+2023-12-09,Travel,26107,Expense,Travel transaction on December 09
+2023-12-10,Salary,16278,Expense,Salary transaction on December 10
+2023-12-11,Sales,66496,Income,Sales transaction on December 11
+2023-12-12,Consulting,82665,Income,Consulting transaction on December 12
+2023-12-13,Consulting,70854,Income,Consulting transaction on December 13
+2023-12-14,Sales,68472,Income,Sales transaction on December 14
+2023-12-15,Investments,32085,Income,Investments transaction on December 15
+2023-12-16,Operations,42848,Expense,Operations transaction on December 16
+2023-12-17,Rent,26303,Expense,Rent transaction on December 17
+2023-12-18,Investments,31585,Income,Investments transaction on December 18
+2023-12-19,Sales,16419,Income,Sales transaction on December 19
+2023-12-20,Consulting,31323,Income,Consulting transaction on December 20
+2023-12-21,Miscellaneous,27362,Expense,Miscellaneous transaction on December 21
+2023-12-22,Marketing,3385,Expense,Marketing transaction on December 22
+2023-12-23,Rental Income,56635,Income,Rental Income transaction on December 23
+2023-12-24,Consulting,70490,Income,Consulting transaction on December 24
+2023-12-25,Rental Income,58215,Income,Rental Income transaction on December 25
+2023-12-26,Investments,19447,Income,Investments transaction on December 26
+2023-12-27,Investments,16435,Income,Investments transaction on December 27
+2023-12-28,Rent,11352,Expense,Rent transaction on December 28
+2023-12-29,Rent,2929,Expense,Rent transaction on December 29
+2023-12-30,Sales,90056,Income,Sales transaction on December 30
+2023-12-31,Travel,2605,Expense,Travel transaction on December 31
