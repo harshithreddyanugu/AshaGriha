@@ -224,7 +224,7 @@ st.markdown("🔹 **Use this tool to plan your loan better and make smart financ
 
 
 # 📂 Load CSV Data
-file_path = ""
+file_path = "business_expense_tracker_yearly.csv"
 df = pd.read_csv(file_path)
 
 # ✅ Debug: Print actual column names to check for issues
