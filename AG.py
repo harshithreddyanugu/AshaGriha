@@ -229,7 +229,7 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 
 # 📂 Load CSV Data
-file_path = "business_expense_tracker_yearly.csv"
+file_path = ""
 df = pd.read_csv(file_path)
 
 # ✅ Debug: Print column names to check for issues
@@ -249,14 +249,17 @@ if missing_columns:
 # ✅ Convert "Date" to datetime format
 df["Date"] = pd.to_datetime(df["Date"], errors='coerce')
 
+# ✅ Ensure "Type" column exists and clean its values
+df["Type"] = df["Type"].astype(str).str.strip()
+
 # 🎯 App Title
-st.title("📊 Business Income & Expense Tracker")
-st.write("🚀 **Track your income, expenses, and profits with interactive insights!**")
+st.title("📊 Business Expense & Income Tracker 💰")
+st.write("🚀 **Easily track your business expenses, analyze income, and optimize financial health!**")
 
 # 📌 Sidebar - Filters
 st.sidebar.header("🔍 Filter Your Transactions")
 category_filter = st.sidebar.multiselect("📂 Select Categories:", df["Category"].unique())
-type_filter = st.sidebar.radio("🔄 Select Transaction Type:", ["All", "Income", "Expense"])
+type_filter = st.sidebar.radio("🔄 Select Transaction Type:", ["All", "Income", "Expense"], index=0)
 date_range = st.sidebar.date_input("📅 Select Date Range:", [df["Date"].min(), df["Date"].max()])
 
 # 🏦 Apply Filters
@@ -264,27 +267,27 @@ filtered_df = df.copy()
 if category_filter:
     filtered_df = filtered_df[filtered_df["Category"].isin(category_filter)]
 if type_filter != "All":
-    filtered_df = filtered_df[filtered_df["Type"].astype(str).str.strip() == type_filter]
+    filtered_df = filtered_df[filtered_df["Type"] == type_filter]
 filtered_df = filtered_df[(filtered_df["Date"] >= pd.to_datetime(date_range[0])) & 
                           (filtered_df["Date"] <= pd.to_datetime(date_range[1]))]
 
 # 📜 Display Transaction Table
-st.subheader("📄 Transaction History")
+st.subheader("📄 Transaction History 📑")
 st.dataframe(filtered_df, use_container_width=True)
 
 # 📊 Financial Overview
 st.subheader("💰 Financial Summary")
-income_total = filtered_df[filtered_df["Type"].astype(str).str.strip() == "Income"]["Amount"].sum()
-expense_total = filtered_df[filtered_df["Type"].astype(str).str.strip() == "Expense"]["Amount"].sum()
+income_total = filtered_df[filtered_df["Type"] == "Income"]["Amount"].sum()
+expense_total = filtered_df[filtered_df["Type"] == "Expense"]["Amount"].sum()
 profit = income_total - expense_total
 
 col1, col2, col3 = st.columns(3)
 col1.metric("💵 Total Income", f"₹{income_total:,.2f}")
 col2.metric("💸 Total Expenses", f"₹{expense_total:,.2f}")
-col3.metric("📈 Net Profit", f"₹{profit:,.2f}")
+col3.metric("📈 Net Profit", f"₹{profit:,.2f}", delta=profit, delta_color="normal")
 
 # 📉 Income vs Expenses Over Time
-st.subheader("📈 Income & Expense Trend")
+st.subheader("📈 Income & Expense Trend Over Time")
 fig, ax = plt.subplots(figsize=(10, 5))
 sns.lineplot(data=filtered_df, x="Date", y="Amount", hue="Type", marker="o", ax=ax)
 plt.xticks(rotation=45)
@@ -293,7 +296,7 @@ st.pyplot(fig)
 
 # 🍰 Expense Breakdown Chart
 st.subheader("📊 Expense Distribution by Category")
-expense_data = filtered_df[filtered_df["Type"].astype(str).str.strip() == "Expense"].groupby("Category")["Amount"].sum()
+expense_data = filtered_df[filtered_df["Type"] == "Expense"].groupby("Category")["Amount"].sum()
 if not expense_data.empty:
     fig, ax = plt.subplots()
     expense_data.plot(kind="pie", autopct="%1.1f%%", colors=["red", "blue", "green", "yellow"], ax=ax)
@@ -307,8 +310,8 @@ csv_data = filtered_df.to_csv(index=False).encode('utf-8')
 st.download_button("📥 Download Report (CSV)", csv_data, "business_report.csv", "text/csv")
 
 # 💡 Insights & Tips
-st.subheader("💡 Business Insights")
-st.write("🔹 **Is your income growing over time?** Look at the trend chart.")
-st.write("🔹 **Are you spending too much on certain categories?** Check the expense distribution.")
-st.write("🔹 **Are you making a profit each month?** Compare income vs. expenses.")
-st.write("🚀 **Track your finances regularly to make smart business decisions!**")
+st.subheader("💡 Business Insights & Recommendations")
+st.write("✅ **Monitor High Spending Areas:** Keep an eye on categories where you're spending the most.")
+st.write("✅ **Analyze Profit Trends:** Identify months where profits are high or low.")
+st.write("✅ **Optimize Budgeting:** Compare your income and expenses to find savings opportunities.")
+st.write("🚀 **Take control of your business finances and boost profitability!**")
