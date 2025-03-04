@@ -139,7 +139,7 @@ extra_payment = st.sidebar.number_input("💸 Extra Monthly Payment (₹)", min_
 @st.cache_data
 def load_data():
     # Load dataset (Assuming CSV file is named 'indian_bank_loans.csv')
-    df = pd.read_csv("indian_bank_loans.csv")
+    df = pd.read_csv("loan_data_train.csv")
 
     # Convert numeric columns properly
     df["Amount.Requested"] = pd.to_numeric(df["Amount.Requested"], errors="coerce")
