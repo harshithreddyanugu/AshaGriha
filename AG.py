@@ -229,18 +229,23 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 
 # 📂 Load CSV Data
-file_path = "business_expense_tracker_yearly.csv"
+file_path = ""
 df = pd.read_csv(file_path)
+
+# ✅ Debug: Print column names to check for issues
+st.write("🔍 Debug: Column Names ->", df.columns.tolist())
 
 # ✅ Fix column names (removing hidden spaces or encoding issues)
 df.columns = df.columns.str.strip()
 
-# ✅ Debug: Print column names to identify issues
-st.write("🔍 Debug: Column Names ->", df.columns.tolist())
-
 # ✅ Check & Rename Columns if needed
 expected_columns = {"Date": "Date", "Category": "Category", "Amount (â‚¹)": "Amount", "Type": "Type", "Description": "Description"}
 df.rename(columns={col: expected_columns[col] for col in df.columns if col in expected_columns}, inplace=True)
+
+# ✅ Verify if "Type" column exists before proceeding
+if "Type" not in df.columns:
+    st.error("⚠️ 'Type' column is missing! Please check the CSV file format.")
+    df["Type"] = "Unknown"  # Create a default column to avoid errors
 
 # ✅ Convert "Date" to datetime format
 df["Date"] = pd.to_datetime(df["Date"], errors='coerce')
@@ -260,7 +265,7 @@ filtered_df = df.copy()
 if category_filter:
     filtered_df = filtered_df[filtered_df["Category"].isin(category_filter)]
 if "Type" in filtered_df.columns and type_filter != "All":
-    filtered_df = filtered_df[filtered_df["Type"] == type_filter]
+    filtered_df = filtered_df[filtered_df["Type"].str.strip() == type_filter]
 filtered_df = filtered_df[(filtered_df["Date"] >= pd.to_datetime(date_range[0])) & 
                           (filtered_df["Date"] <= pd.to_datetime(date_range[1]))]
 
@@ -271,8 +276,8 @@ st.dataframe(filtered_df, use_container_width=True)
 # 📊 Financial Overview
 st.subheader("💰 Financial Summary")
 if "Type" in filtered_df.columns:
-    income_total = filtered_df[filtered_df["Type"] == "Income"]["Amount"].sum()
-    expense_total = filtered_df[filtered_df["Type"] == "Expense"]["Amount"].sum()
+    income_total = filtered_df[filtered_df["Type"].str.strip() == "Income"]["Amount"].sum()
+    expense_total = filtered_df[filtered_df["Type"].str.strip() == "Expense"]["Amount"].sum()
     profit = income_total - expense_total
 else:
     st.error("⚠️ 'Type' column is missing! Please check the CSV file format.")
@@ -297,7 +302,7 @@ else:
 # 🍰 Expense Breakdown Chart
 st.subheader("📊 Expense Distribution by Category")
 if "Type" in filtered_df.columns:
-    expense_data = filtered_df[filtered_df["Type"] == "Expense"].groupby("Category")["Amount"].sum()
+    expense_data = filtered_df[filtered_df["Type"].str.strip() == "Expense"].groupby("Category")["Amount"].sum()
     if not expense_data.empty:
         fig, ax = plt.subplots()
         expense_data.plot(kind="pie", autopct="%1.1f%%", colors=["red", "blue", "green", "yellow"], ax=ax)
