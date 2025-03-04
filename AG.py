@@ -3,13 +3,10 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import numpy as np
 import seaborn as sns
-import streamlit as st
-import pandas as pd
-import matplotlib.pyplot as plt
-import seaborn as sns
+
 
 # 📂 Load CSV Data
-file_path = "/mnt/data/business_expense_income_tracker.csv"
+file_path = "business_expense_income_tracker.csv"
 df = pd.read_csv(file_path)
 
 # ✅ Debug: Print actual column names to check for issues
