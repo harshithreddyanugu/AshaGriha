@@ -214,8 +214,7 @@ st.write("💡 **Final Advice:** A well-planned loan can help you achieve your f
 
 st.markdown("🔹 **Use this tool to plan your loan better and make smart financial decisions!** 🚀")
 
- # 🏡 Streamlit Page Configuration
-st.set_page_config(page_title="Mortgage Calculator (INR)", page_icon="🏠", layout="centered")
+
 
 # 🔄 Conversion Rate (1 USD to INR)
 USD_TO_INR = 83  # Update as per latest exchange rate
