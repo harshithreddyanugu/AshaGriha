@@ -119,62 +119,136 @@ st.markdown("🔹 **This calculator helps you make smarter mortgage decisions by
 
 
 
-# 🎨 Header
-st.markdown("<h1 style='text-align: center; color: darkblue;'>🏦 Indian Bank Loan Finder</h1>", unsafe_allow_html=True)
-st.write("🔹 Find the best Indian bank for your loan needs based on interest rates and eligibility criteria.")
 
-# 📂 Load Dataset (You should replace this with the actual file path)
+
+
+# 🎨 Header
+st.markdown("<h1 style='text-align: center; color: darkblue;'>🏡 Mortgage & Loan Comparison Tool</h1>", unsafe_allow_html=True)
+st.write("🔹 This tool helps you **compare loan options from Indian banks**, estimate **monthly mortgage payments**, and make **informed financial decisions**.")
+
+# 📌 Sidebar - User Inputs
+st.sidebar.header("🔧 Adjust Your Loan Details")
+
+loan_amount = st.sidebar.number_input("💰 Home Loan Amount (₹)", min_value=10000, value=1000000, step=50000, format="%.0f")
+interest_rate = st.sidebar.slider("📈 Max Interest Rate (%)", min_value=0.0, max_value=20.0, value=10.0, step=0.1)
+loan_term = st.sidebar.slider("📅 Loan Term (Years)", min_value=1, max_value=40, value=20, step=1)
+loan_purpose = st.sidebar.selectbox("🎯 Purpose of Loan", ["Home Purchase", "Education", "Business", "Personal", "Car Loan"])
+extra_payment = st.sidebar.number_input("💸 Extra Monthly Payment (₹)", min_value=0, value=0, step=5000, format="%.0f")
+
+# 📂 Load Bank Loan Dataset
 @st.cache_data
 def load_data():
-    df = pd.read_csv("loan_data_train.csv")  # Replace with actual dataset
+    # Load dataset (Assuming CSV file is named 'indian_bank_loans.csv')
+    df = pd.read_csv("indian_bank_loans.csv")
+
+    # Convert numeric columns properly
+    df["Amount.Requested"] = pd.to_numeric(df["Amount.Requested"], errors="coerce")
+    df["Interest.Rate"] = pd.to_numeric(df["Interest.Rate"], errors="coerce")
+    df["Monthly.Income"] = pd.to_numeric(df["Monthly.Income"], errors="coerce")
+
+    # Drop missing values in critical columns
+    df.dropna(subset=["Amount.Requested", "Interest.Rate", "Monthly.Income"], inplace=True)
     return df
 
 df = load_data()
 
-# 🎯 User Input Section
-st.sidebar.header("🔧 Customize Your Loan Requirements")
-loan_amount = st.sidebar.number_input("💰 Loan Amount (INR)", min_value=10000, value=500000, step=10000)
-loan_purpose = st.sidebar.selectbox("🎯 Loan Purpose", df["Loan.Purpose"].unique())
-credit_score = st.sidebar.slider("📊 Your Credit Score (FICO Range)", min_value=300, max_value=900, value=750, step=10)
-monthly_income = st.sidebar.number_input("💵 Monthly Income (INR)", min_value=10000, value=50000, step=5000)
-debt_to_income_ratio = st.sidebar.slider("💳 Debt-to-Income Ratio (%)", min_value=0, max_value=100, value=20, step=1)
-loan_length = st.sidebar.selectbox("📅 Loan Tenure", df["Loan.Length"].unique())
+# 🎯 Filter Banks Based on User Input
+filtered_banks = df[(df["Loan.Purpose"] == loan_purpose) & (df["Amount.Requested"] >= loan_amount) & (df["Interest.Rate"] <= interest_rate)]
 
-# 📌 Filter Banks Based on User Input
-filtered_banks = df[(df["Loan.Purpose"] == loan_purpose) & (df["Amount.Requested"] >= loan_amount)]
+# 🏦 Recommend the Best Bank
+best_bank = filtered_banks.sort_values(by="Interest.Rate").head(1)
 
-# 📊 Sorting Banks by Interest Rate
-filtered_banks = filtered_banks.sort_values(by=["Interest.Rate"], ascending=True)
-
-# 🏆 Suggest Best Bank
-def recommend_best_bank():
-    best_bank = filtered_banks.iloc[0] if not filtered_banks.empty else None
-    return best_bank
-
-best_bank = recommend_best_bank()
-
-# 📌 Loan Recommendation
-st.markdown("## 🏦 Best Bank Recommendation")
-if best_bank is not None:
-    st.success(f"✅ **Best Bank for Your Loan:** {best_bank['State']} (Interest Rate: {best_bank['Interest.Rate']}%)")
-    st.write(f"- **Loan Amount Approved:** ₹{best_bank['Amount.Funded.By.Investors']:,.2f}")
-    st.write(f"- **Loan Tenure:** {best_bank['Loan.Length']}")
-    st.write(f"- **Debt-to-Income Ratio Requirement:** {best_bank['Debt.To.Income.Ratio']}%")
+# 🏦 Display Loan Options
+st.markdown("## 🏦 Available Bank Loan Options")
+if not filtered_banks.empty:
+    st.write("🔍 Here are the banks that match your loan needs:")
+    st.dataframe(filtered_banks[["ID", "State", "Interest.Rate", "Loan.Length", "Home.Ownership"]])
+    
+    # 🌟 Best Bank Recommendation
+    if not best_bank.empty:
+        st.success(f"🏆 **Best Bank Recommendation:** {best_bank.iloc[0]['ID']} in {best_bank.iloc[0]['State']} with an interest rate of {best_bank.iloc[0]['Interest.Rate']}%")
 else:
-    st.error("❌ No banks found matching your criteria. Try adjusting the filters.")
+    st.warning("⚠️ No banks match your criteria. Try adjusting the filters.")
 
-# 📌 Show All Bank Options
-st.markdown("## 📋 List of Indian Banks Offering Loans")
-st.dataframe(filtered_banks[['State', 'Interest.Rate', 'Loan.Length', 'Debt.To.Income.Ratio']].reset_index(drop=True))
+# 📊 Loan Payment Breakdown
+st.markdown("## 📊 Loan Payment Breakdown")
 
-# 📊 Visualization - Interest Rate Distribution
-st.markdown("## 📊 Interest Rate Distribution Across Banks")
-fig, ax = plt.subplots()
-ax.hist(df["Interest.Rate"], bins=20, color='blue', alpha=0.7)
-ax.set_xlabel("Interest Rate (%)")
-ax.set_ylabel("Number of Banks")
-ax.set_title("Distribution of Loan Interest Rates")
+# 🏦 Function to calculate mortgage payment
+def calculate_mortgage(P, annual_rate, years, extra_payment=0):
+    r = (annual_rate / 100) / 12  # Monthly interest rate
+    n = years * 12  # Total number of payments
+    if r > 0:
+        M = (P * r * (1 + r) ** n) / ((1 + r) ** n - 1)  # Monthly payment formula
+    else:
+        M = P / n  # If interest rate is 0
+    return M + extra_payment
+
+# 📊 Function to generate amortization schedule
+def amortization_schedule(P, annual_rate, years, extra_payment=0):
+    r = (annual_rate / 100) / 12  
+    n = years * 12  
+    balance = P
+    schedule = []
+    for month in range(1, n + 1):
+        interest = balance * r if r > 0 else 0  
+        principal = calculate_mortgage(P, annual_rate, years, extra_payment) - interest  
+        balance -= principal  
+        
+        if balance < 0:
+            balance = 0  
+            principal += balance  
+
+        schedule.append([month, principal, interest, balance])
+        if balance == 0:
+            break  
+
+    return pd.DataFrame(schedule, columns=["Month", "Principal", "Interest", "Balance"])
+
+# 🔢 Calculate mortgage details
+monthly_payment = calculate_mortgage(loan_amount, interest_rate, loan_term, extra_payment)
+schedule = amortization_schedule(loan_amount, interest_rate, loan_term, extra_payment)
+
+st.success(f"💵 **Your Monthly Payment:** ₹{monthly_payment:,.2f} per month")
+st.info(f"💰 **Total Amount Paid Over {loan_term} Years:** ₹{schedule[['Principal', 'Interest']].sum().sum():,.2f}")
+st.warning(f"📉 **Total Interest Paid:** ₹{schedule['Interest'].sum():,.2f}")
+
+# 📅 Amortization Schedule
+st.markdown("## 📅 Loan Repayment Schedule")
+st.dataframe(schedule.style.format({"Principal": "₹{:,.2f}", "Interest": "₹{:,.2f}", "Balance": "₹{:,.2f}"}))
+
+# 📉 Loan Balance Over Time
+st.markdown("## 📉 Loan Balance Over Time")
+fig, ax = plt.subplots(figsize=(8, 4))
+ax.plot(schedule["Month"], schedule["Balance"], label="Remaining Loan Balance", color="red", linewidth=2)
+ax.set_xlabel("Month")
+ax.set_ylabel("Loan Balance (₹)")
+ax.grid(True, linestyle="--", alpha=0.6)
+ax.legend()
 st.pyplot(fig)
 
-# 🎯 Final Insights
-st.markdown("🔹 **Compare banks based on interest rates, tenure, and eligibility to make the best financial decision.**")
+# 📊 Payment Breakdown Pie Chart
+st.markdown("## 📊 Loan Payment Composition")
+fig, ax = plt.subplots()
+ax.pie(
+    [schedule["Principal"].sum(), schedule["Interest"].sum()],
+    labels=["Principal (Loan)", "Interest (Bank's Profit)"],
+    autopct="%1.1f%%",
+    colors=["green", "orange"],
+    wedgeprops={"edgecolor": "black"},
+)
+st.pyplot(fig)
+
+# 📢 Mortgage FAQs
+st.markdown("## 🤔 Frequently Asked Questions")
+
+with st.expander("📌 What is a mortgage?"):
+    st.write("A mortgage is a loan used to purchase a home. You borrow money from a bank and repay it over time with interest.")
+
+with st.expander("📌 How does interest affect my payments?"):
+    st.write("Interest is what the bank charges you for borrowing money. A higher interest rate means higher monthly payments.")
+
+with st.expander("📌 Can I save money by making extra payments?"):
+    st.write("Yes! Extra payments reduce the loan balance faster, lowering interest costs and shortening the loan term.")
+
+# 🎯 Final Message
+st.markdown("🔹 **Use this tool to compare loans, estimate payments, and make the best financial decisions!** 🚀")
