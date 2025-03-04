@@ -2,6 +2,7 @@ import streamlit as st
 import pandas as pd
 import matplotlib.pyplot as plt
 import numpy as np
+import seaborn as sns
 # 🏡 Streamlit Page Configuration
 st.set_page_config(page_title="Mortgage Calculator (INR)", page_icon="🏠", layout="centered")
 
