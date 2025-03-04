@@ -126,7 +126,7 @@ st.write("🔹 Find the best Indian bank for your loan needs based on interest r
 # 📂 Load Dataset (You should replace this with the actual file path)
 @st.cache_data
 def load_data():
-    df = pd.read_csv("indian_bank_loans.csv")  # Replace with actual dataset
+    df = pd.read_csv("loan_data_train.csv")  # Replace with actual dataset
     return df
 
 df = load_data()
