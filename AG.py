@@ -9,8 +9,6 @@ import seaborn as sns
 file_path = "business_expense_income_tracker.csv"
 df = pd.read_csv(file_path)
 
-# ✅ Debug: Print actual column names to check for issues
-st.write("🔍 Debug: Column Names ->", df.columns.tolist())
 
 # ✅ Standardize column names (strip spaces, fix encoding issues)
 df.columns = df.columns.str.strip()
