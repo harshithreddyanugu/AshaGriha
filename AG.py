@@ -222,10 +222,7 @@ st.markdown("🔹 **Use this tool to plan your loan better and make smart financ
 
  
 
-import streamlit as st
-import pandas as pd
-import matplotlib.pyplot as plt
-import seaborn as sns
+
 
 # 📂 Load CSV Data
 file_path = "business_expense_income_tracker.csv"
