@@ -220,13 +220,6 @@ st.write("💡 **Final Advice:** A well-planned loan can help you achieve your f
 st.markdown("🔹 **Use this tool to plan your loan better and make smart financial decisions!** 🚀")
 
  
-import streamlit as st
-import pandas as pd
-import matplotlib.pyplot as plt
-import os
-
-# 🏦 Streamlit Page Configuration
-st.set_page_config(page_title="📊 Business Expense Tracker", page_icon="💰", layout="wide")
 
 # 🎨 Header
 st.markdown("<h1 style='text-align: center; color: darkblue;'>📊 Business Expense Tracker</h1>", unsafe_allow_html=True)
@@ -238,7 +231,7 @@ st.write("- 📉 **Identify areas where you can save costs.**")
 st.write("- 💰 **Download reports for tax and business planning.**")
 
 # 📂 Load or Create Expense Data
-csv_file = "business_expenses.csv"
+csv_file = "business_expense_tracker_full_year (1).csv"
 if os.path.exists(csv_file):
     df = pd.read_csv(csv_file)
 else:
