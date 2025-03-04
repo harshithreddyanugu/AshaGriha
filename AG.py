@@ -1,26 +1,24 @@
 import streamlit as st
-import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
 
 # 🏡 Streamlit Page Configuration
-st.set_page_config(page_title="Mortgage Calculator", page_icon="🏠", layout="centered")
+st.set_page_config(page_title="Mortgage Calculator (INR)", page_icon="🏠", layout="centered")
+
+# 🔄 Conversion Rate (1 USD to INR)
+USD_TO_INR = 83  # Update as per latest exchange rate
 
 # 🎨 Header
-st.markdown("<h1 style='text-align: center; color: darkblue;'>🏡 Mortgage Repayment Calculator</h1>", unsafe_allow_html=True)
+st.markdown("<h1 style='text-align: center; color: darkblue;'>🏡 Mortgage Repayment Calculator (₹)</h1>", unsafe_allow_html=True)
 st.write("🔹 This tool helps you estimate **monthly mortgage payments**, visualize your **loan repayment progress**, and understand **how much interest you will pay over time**.")
 
 # 📌 Sidebar - User Inputs
 st.sidebar.header("🔧 Adjust Your Loan Details")
 
-loan_amount = st.sidebar.number_input("💰 Home Loan Amount ($)", min_value=1000, value=250000, step=1000, format="%.0f",
-                                      help="Enter the total amount you are borrowing from the bank.")
-interest_rate = st.sidebar.slider("📈 Interest Rate (%)", min_value=0.0, max_value=15.0, value=5.0, step=0.1,
-                                  help="The annual interest rate charged by the lender.")
-loan_term = st.sidebar.slider("📅 Loan Term (Years)", min_value=1, max_value=40, value=30, step=1,
-                              help="The total number of years you will take to repay the loan.")
-extra_payment = st.sidebar.number_input("💸 Extra Monthly Payment ($)", min_value=0, value=0, step=50, format="%.0f",
-                                        help="Any additional money you want to pay each month to reduce your loan faster.")
+loan_amount = st.sidebar.number_input("💰 Home Loan Amount (₹)", min_value=1000, value=250000 * USD_TO_INR, step=50000, format="%.0f")
+interest_rate = st.sidebar.slider("📈 Interest Rate (%)", min_value=0.0, max_value=15.0, value=5.0, step=0.1)
+loan_term = st.sidebar.slider("📅 Loan Term (Years)", min_value=1, max_value=40, value=30, step=1)
+extra_payment = st.sidebar.number_input("💸 Extra Monthly Payment (₹)", min_value=0, value=0, step=5000, format="%.0f")
 
 # 🏦 Function to calculate mortgage payment
 def calculate_mortgage(P, annual_rate, years, extra_payment=0):
@@ -42,7 +40,7 @@ def amortization_schedule(P, annual_rate, years, extra_payment=0):
         interest = balance * r if r > 0 else 0  
         principal = calculate_mortgage(P, annual_rate, years, extra_payment) - interest  
         balance -= principal  
-        
+
         if balance < 0:
             balance = 0  
             principal += balance  
@@ -60,9 +58,9 @@ schedule = amortization_schedule(loan_amount, interest_rate, loan_term, extra_pa
 # 📌 Loan Summary
 st.markdown("## 📌 Loan Summary")
 st.write("### 🔹 Key Takeaways:")
-st.success(f"💵 **Your Monthly Payment:** ${monthly_payment:,.2f} per month")
-st.info(f"💰 **Total Amount Paid Over {loan_term} Years:** ${schedule[['Principal', 'Interest']].sum().sum():,.2f}")
-st.warning(f"📉 **Total Interest Paid:** ${schedule['Interest'].sum():,.2f}")
+st.success(f"💵 **Your Monthly Payment:** ₹{monthly_payment:,.2f} per month")
+st.info(f"💰 **Total Amount Paid Over {loan_term} Years:** ₹{schedule[['Principal', 'Interest']].sum().sum():,.2f}")
+st.warning(f"📉 **Total Interest Paid:** ₹{schedule['Interest'].sum():,.2f}")
 
 # 💡 Insightful Explanation
 st.write("💡 **Understanding Your Mortgage:**")
@@ -72,14 +70,14 @@ st.write("- Extra payments **reduce the interest paid** and help **pay off the l
 
 # 📅 Amortization Schedule
 st.markdown("## 📅 Amortization Schedule (Loan Payment Breakdown)")
-st.dataframe(schedule.style.format({"Principal": "${:,.2f}", "Interest": "${:,.2f}", "Balance": "${:,.2f}"}))
+st.dataframe(schedule.style.format({"Principal": "₹{:,.2f}", "Interest": "₹{:,.2f}", "Balance": "₹{:,.2f}"}))
 
 # 📊 Loan Balance Over Time
 st.markdown("## 📉 Loan Balance Over Time")
 fig, ax = plt.subplots(figsize=(8, 4))
 ax.plot(schedule["Month"], schedule["Balance"], label="Remaining Loan Balance", color="red", linewidth=2)
 ax.set_xlabel("Month")
-ax.set_ylabel("Loan Balance ($)")
+ax.set_ylabel("Loan Balance (₹)")
 ax.grid(True, linestyle="--", alpha=0.6)
 ax.legend()
 st.pyplot(fig)
@@ -118,4 +116,3 @@ with st.expander("📌 What happens if I pay off my loan early?"):
 
 # 🎯 Final Message
 st.markdown("🔹 **This calculator helps you make smarter mortgage decisions by understanding your payments, loan term, and interest impact.**")
-
