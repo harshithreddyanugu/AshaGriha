@@ -1,7 +1,7 @@
 import streamlit as st
 import pandas as pd
 import matplotlib.pyplot as plt
-
+import numpy as np
 # 🏡 Streamlit Page Configuration
 st.set_page_config(page_title="Mortgage Calculator (INR)", page_icon="🏠", layout="centered")
 
@@ -116,3 +116,65 @@ with st.expander("📌 What happens if I pay off my loan early?"):
 
 # 🎯 Final Message
 st.markdown("🔹 **This calculator helps you make smarter mortgage decisions by understanding your payments, loan term, and interest impact.**")
+
+
+
+# 🎨 Header
+st.markdown("<h1 style='text-align: center; color: darkblue;'>🏦 Indian Bank Loan Finder</h1>", unsafe_allow_html=True)
+st.write("🔹 Find the best Indian bank for your loan needs based on interest rates and eligibility criteria.")
+
+# 📂 Load Dataset (You should replace this with the actual file path)
+@st.cache_data
+def load_data():
+    df = pd.read_csv("indian_bank_loans.csv")  # Replace with actual dataset
+    return df
+
+df = load_data()
+
+# 🎯 User Input Section
+st.sidebar.header("🔧 Customize Your Loan Requirements")
+loan_amount = st.sidebar.number_input("💰 Loan Amount (INR)", min_value=10000, value=500000, step=10000)
+loan_purpose = st.sidebar.selectbox("🎯 Loan Purpose", df["Loan.Purpose"].unique())
+credit_score = st.sidebar.slider("📊 Your Credit Score (FICO Range)", min_value=300, max_value=900, value=750, step=10)
+monthly_income = st.sidebar.number_input("💵 Monthly Income (INR)", min_value=10000, value=50000, step=5000)
+debt_to_income_ratio = st.sidebar.slider("💳 Debt-to-Income Ratio (%)", min_value=0, max_value=100, value=20, step=1)
+loan_length = st.sidebar.selectbox("📅 Loan Tenure", df["Loan.Length"].unique())
+
+# 📌 Filter Banks Based on User Input
+filtered_banks = df[(df["Loan.Purpose"] == loan_purpose) & (df["Amount.Requested"] >= loan_amount)]
+
+# 📊 Sorting Banks by Interest Rate
+filtered_banks = filtered_banks.sort_values(by=["Interest.Rate"], ascending=True)
+
+# 🏆 Suggest Best Bank
+def recommend_best_bank():
+    best_bank = filtered_banks.iloc[0] if not filtered_banks.empty else None
+    return best_bank
+
+best_bank = recommend_best_bank()
+
+# 📌 Loan Recommendation
+st.markdown("## 🏦 Best Bank Recommendation")
+if best_bank is not None:
+    st.success(f"✅ **Best Bank for Your Loan:** {best_bank['State']} (Interest Rate: {best_bank['Interest.Rate']}%)")
+    st.write(f"- **Loan Amount Approved:** ₹{best_bank['Amount.Funded.By.Investors']:,.2f}")
+    st.write(f"- **Loan Tenure:** {best_bank['Loan.Length']}")
+    st.write(f"- **Debt-to-Income Ratio Requirement:** {best_bank['Debt.To.Income.Ratio']}%")
+else:
+    st.error("❌ No banks found matching your criteria. Try adjusting the filters.")
+
+# 📌 Show All Bank Options
+st.markdown("## 📋 List of Indian Banks Offering Loans")
+st.dataframe(filtered_banks[['State', 'Interest.Rate', 'Loan.Length', 'Debt.To.Income.Ratio']].reset_index(drop=True))
+
+# 📊 Visualization - Interest Rate Distribution
+st.markdown("## 📊 Interest Rate Distribution Across Banks")
+fig, ax = plt.subplots()
+ax.hist(df["Interest.Rate"], bins=20, color='blue', alpha=0.7)
+ax.set_xlabel("Interest Rate (%)")
+ax.set_ylabel("Number of Banks")
+ax.set_title("Distribution of Loan Interest Rates")
+st.pyplot(fig)
+
+# 🎯 Final Insights
+st.markdown("🔹 **Compare banks based on interest rates, tenure, and eligibility to make the best financial decision.**")
