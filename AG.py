@@ -225,7 +225,7 @@ st.markdown("🔹 **Use this tool to plan your loan better and make smart financ
 # Load Data
 @st.cache_data
 def load_data():
-    df = pd.read_csv("/mnt/data/business_expense_tracker_full_year (1).csv")
+    df = pd.read_csv("business_expense_tracker_full_year (1).csv")
     df.columns = ["Date", "Category", "Amount", "Payment Method", "Description"]
     df["Date"] = pd.to_datetime(df["Date"])
     return df
